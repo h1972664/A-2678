@@ -43,9 +43,10 @@
 
   <!-- ═══════════════════════ HERO ═══════════════════════ -->
   <section id="hero">
-    <!-- video reel carousel -->
+    <!-- video reel carousel: shuffled background videos -->
     <div class="hero-reel" id="heroReel">
-      <!-- slides injected by JS -->
+      <div class="reel-back reel-empty"></div>
+      <div class="reel-front reel-empty"></div>
     </div>
     <div class="hero-overlay">
       <div class="hero-content">
@@ -65,7 +66,7 @@
   </section>
 
   <!-- ═══════════════════════ VIDEO SECTION ═══════════════════════ -->
-  <section id="video-section" class="section">
+    <section id="video-section" class="section">
     <div class="section-header">
       <span class="section-label">01</span>
       <h2 class="section-title">视频作品</h2>
@@ -77,53 +78,142 @@
       <button class="tab active" data-tab="tvc">TVC</button>
       <button class="tab" data-tab="manga">漫剧</button>
       <button class="tab" data-tab="mv">MV</button>
+      <button class="tab" data-tab="digital">数字人</button>
     </div>
 
     <!-- TVC -->
     <div class="tab-panel active" id="panel-tvc">
       <div class="video-grid">
-        <div class="video-card" data-category="TVC">
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/冰红茶.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%)"></div>
+            <video class="thumb-video" src="videos/tvc/冰红茶.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">TVC</span>
           </div>
           <div class="video-info">
-            <h3>某品牌 30s TVC</h3>
-            <p>品牌形象 · 情感叙事</p>
+            <h3>冰红茶</h3>
+            <p>TVC 广告片</p>
           </div>
         </div>
-        <div class="video-card" data-category="TVC">
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/印章.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#2d1b69 0%,#11998e 100%)"></div>
+            <video class="thumb-video" src="videos/tvc/印章.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">TVC</span>
           </div>
           <div class="video-info">
-            <h3>新品上市 60s 广告片</h3>
-            <p>产品展示 · 场景构建</p>
+            <h3>印章</h3>
+            <p>TVC 广告片</p>
           </div>
         </div>
-        <div class="video-card" data-category="TVC">
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/复古苏联怀表广告.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#fc5c7d 0%,#6a3093 100%)"></div>
+            <video class="thumb-video" src="videos/tvc/复古苏联怀表广告.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">TVC</span>
           </div>
           <div class="video-info">
-            <h3>节日营销 TVC</h3>
-            <p>情感共鸣 · 节日氛围</p>
+            <h3>复古苏联怀表广告</h3>
+            <p>TVC 广告片</p>
           </div>
         </div>
-        <div class="video-card" data-category="TVC">
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/美妆广告.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)"></div>
+            <video class="thumb-video" src="videos/tvc/美妆广告.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">TVC</span>
           </div>
           <div class="video-info">
-            <h3>汽车品牌形象片</h3>
-            <p>高端质感 · 动感表达</p>
+            <h3>美妆广告</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/英文陶瓷碗广告.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/英文陶瓷碗广告.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>英文陶瓷碗广告</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/豆浆机广告.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/豆浆机广告.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>豆浆机广告</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/酒杯.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/酒杯.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>酒杯</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/铠甲.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/铠甲.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>铠甲</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/香水广告.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/香水广告.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>香水广告</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/香水广告1.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/香水广告1.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>香水广告1</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/香炉横屏.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/香炉横屏.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>香炉横屏</h3>
+            <p>TVC 广告片</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="TVC" data-src="videos/tvc/鼠标广告.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/tvc/鼠标广告.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">TVC</span>
+          </div>
+          <div class="video-info">
+            <h3>鼠标广告</h3>
+            <p>TVC 广告片</p>
           </div>
         </div>
       </div>
@@ -132,87 +222,93 @@
     <!-- 漫剧 -->
     <div class="tab-panel" id="panel-manga">
       <div class="video-grid">
-        <div class="video-card" data-category="漫剧">
+        <div class="video-card" data-category="漫剧" data-src="videos/漫剧/九域妖灵录-1.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#f7971e 0%,#ffd200 100%)"></div>
+            <video class="thumb-video" src="videos/漫剧/九域妖灵录-1.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">漫剧</span>
           </div>
           <div class="video-info">
-            <h3>都市轻喜剧 第一集</h3>
-            <p>竖屏漫剧 · 短剧内容</p>
+            <h3>九域妖灵录-1</h3>
+            <p>漫剧作品</p>
           </div>
         </div>
-        <div class="video-card" data-category="漫剧">
+        <div class="video-card" data-category="漫剧" data-src="videos/漫剧/九域妖灵录-2.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%)"></div>
+            <video class="thumb-video" src="videos/漫剧/九域妖灵录-2.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">漫剧</span>
           </div>
           <div class="video-info">
-            <h3>品牌定制漫剧</h3>
-            <p>内容植入 · 故事营销</p>
+            <h3>九域妖灵录-2</h3>
+            <p>漫剧作品</p>
           </div>
         </div>
-        <div class="video-card" data-category="漫剧">
+        <div class="video-card" data-category="漫剧" data-src="videos/漫剧/九域妖灵录-3.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#ee0979 0%,#ff6a00 100%)"></div>
+            <video class="thumb-video" src="videos/漫剧/九域妖灵录-3.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">漫剧</span>
           </div>
           <div class="video-info">
-            <h3>恋爱轻喜剧系列</h3>
-            <p>情感叙事 · 品牌软植</p>
+            <h3>九域妖灵录-3</h3>
+            <p>漫剧作品</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="漫剧" data-src="videos/漫剧/九域妖灵录-4.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/漫剧/九域妖灵录-4.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">漫剧</span>
+          </div>
+          <div class="video-info">
+            <h3>九域妖灵录-4</h3>
+            <p>漫剧作品</p>
+          </div>
+        </div>
+        <div class="video-card" data-category="漫剧" data-src="videos/漫剧/九域妖灵录-5.mp4">
+          <div class="video-thumb">
+            <video class="thumb-video" src="videos/漫剧/九域妖灵录-5.mp4" muted preload="metadata" playsinline></video>
+            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <span class="video-tag">漫剧</span>
+          </div>
+          <div class="video-info">
+            <h3>九域妖灵录-5</h3>
+            <p>漫剧作品</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- MV -->
-    <div class="tab-panel" id="panel-mv">
+<div class="tab-panel" id="panel-mv">
       <div class="video-grid">
-        <div class="video-card" data-category="MV">
+        <div class="video-card" data-category="MV" data-src="videos/mv/字幕版MV.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#141e30 0%,#243b55 100%)"></div>
+            <video class="thumb-video" src="videos/mv/字幕版MV.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
             <span class="video-tag">MV</span>
           </div>
           <div class="video-info">
-            <h3>《某某》Official MV</h3>
-            <p>视觉叙事 · 音画同步</p>
+            <h3>MV 作品</h3>
+            <p>音画同步 · 视觉叙事</p>
           </div>
         </div>
-        <div class="video-card" data-category="MV">
+      </div>
+    </div>
+
+    <!-- 数字人 -->
+    <div class="tab-panel" id="panel-digital">
+      <div class="video-grid">
+        <div class="video-card" data-category="数字人" data-src="videos/数字人/jimeng-2026-07-16-5805.mp4">
           <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#8e2de2 0%,#4a00e0 100%)"></div>
+            <video class="thumb-video" src="videos/数字人/jimeng-2026-07-16-5805.mp4" muted preload="metadata" playsinline></video>
             <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-            <span class="video-tag">MV</span>
+            <span class="video-tag">数字人</span>
           </div>
           <div class="video-info">
-            <h3>《流光》概念 MV</h3>
-            <p>实验影像 · 抽象美学</p>
-          </div>
-        </div>
-        <div class="video-card" data-category="MV">
-          <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#f953c6 0%,#b91d73 100%)"></div>
-            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-            <span class="video-tag">MV</span>
-          </div>
-          <div class="video-info">
-            <h3>《夏日》MV</h3>
-            <p>清新风格 · 生活美学</p>
-          </div>
-        </div>
-        <div class="video-card" data-category="MV">
-          <div class="video-thumb">
-            <div class="thumb-bg" style="background:linear-gradient(135deg,#00b09b 0%,#96c93d 100%)"></div>
-            <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-            <span class="video-tag">MV</span>
-          </div>
-          <div class="video-info">
-            <h3>《自然》纪录风 MV</h3>
-            <p>纪实风格 · 情绪表达</p>
+            <h3>数字人形象</h3>
+            <p>AI 数字人</p>
           </div>
         </div>
       </div>
@@ -229,232 +325,352 @@
 
     <!-- design tabs -->
     <div class="tab-bar light" id="designTabs">
-      <button class="tab active" data-dtab="main-image">产品主图</button>
-      <button class="tab" data-dtab="poster">海报</button>
-      <button class="tab" data-dtab="banner">Banner</button>
+      <button class="tab active" data-dtab="overview">首页</button>
+      <button class="tab" data-dtab="main-image">产品主图</button>
+      <button class="tab" data-dtab="poster">海报 / Banner</button>
       <button class="tab" data-dtab="detail">详情页</button>
       <button class="tab" data-dtab="logo">Logo</button>
       <button class="tab" data-dtab="ip">IP形象</button>
     </div>
 
     <!-- design panels -->
-    <div class="design-panel active" id="dpanel-main-image">
+        <div class="design-panel active" id="dpanel-overview">
+      <div class="ov-grid">
+      <div class="ov-card">
+        <div class="ov-card-head">
+          <span class="ov-card-cat">产品主图</span>
+          <span class="ov-card-count">16 张</span>
+        </div>
+        <div class="ov-slider">
+          <div class="ov-track">
+          <img src="images/主图/主图1/主图.jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图1/主图2..jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图1/图片-1.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图1/成品-1 (1).png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图1/成品-1.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图2/主图1.jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图2/主图2..jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图2/主图3.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图2/主图4.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图2/主图5.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图1.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图2.jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图3.png" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图4.jpg" alt="产品主图" loading="lazy">
+          <img src="images/主图/主图3/主图5.png" alt="产品主图" loading="lazy">
+          </div>
+          <button class="ov-btn ov-prev" type="button" aria-label="上一张">&#8249;</button>
+          <button class="ov-btn ov-next" type="button" aria-label="下一张">&#8250;</button>
+          <div class="ov-dots"></div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-card-head">
+          <span class="ov-card-cat">海报 / Banner</span>
+          <span class="ov-card-count">12 张</span>
+        </div>
+        <div class="ov-slider">
+          <div class="ov-track">
+          <img src="images/bannar/bannar.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/bannar1.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/bannar2.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/bannar2.png" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/bannar3.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/bannar4.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/haibao.jpg" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/haibao1.png" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/海报.png" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/海报1.png" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/海报2.png" alt="海报 / Banner" loading="lazy">
+          <img src="images/bannar/海报b.png" alt="海报 / Banner" loading="lazy">
+          </div>
+          <button class="ov-btn ov-prev" type="button" aria-label="上一张">&#8249;</button>
+          <button class="ov-btn ov-next" type="button" aria-label="下一张">&#8250;</button>
+          <div class="ov-dots"></div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-card-head">
+          <span class="ov-card-cat">详情页</span>
+          <span class="ov-card-count">2 张</span>
+        </div>
+        <div class="ov-slider">
+          <div class="ov-track">
+          <img src="images/详情页/豆浆机详情页.jpg" alt="详情页" loading="lazy">
+          <img src="images/详情页/鼠标详情页.jpg" alt="详情页" loading="lazy">
+          </div>
+          <button class="ov-btn ov-prev" type="button" aria-label="上一张">&#8249;</button>
+          <button class="ov-btn ov-next" type="button" aria-label="下一张">&#8250;</button>
+          <div class="ov-dots"></div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-card-head">
+          <span class="ov-card-cat">Logo</span>
+          <span class="ov-card-count">3 张</span>
+        </div>
+        <div class="ov-slider">
+          <div class="ov-track">
+            <img src="images/logo/ChatGPT Image 2026年5月26日 19_38_26.png" alt="凤凰飞鸟" loading="lazy">
+            <img src="images/logo/Logo提示词撰写指南.png" alt="几何猫" loading="lazy">
+            <img src="images/logo/ChatGPT Image 2026年5月26日 19_54_15.png" alt="橘猫咖啡厅" loading="lazy">
+          </div>
+          <button class="ov-btn ov-prev" type="button" aria-label="上一张">&#8249;</button>
+          <button class="ov-btn ov-next" type="button" aria-label="下一张">&#8250;</button>
+          <div class="ov-dots"></div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-card-head">
+          <span class="ov-card-cat">IP形象</span>
+          <span class="ov-card-count">8 张</span>
+        </div>
+        <div class="ov-slider">
+          <div class="ov-track">
+            <img src="images/IP/bcc36dd36c9f49188ab416d90e04807f.png" alt="迷虎Meetiger" loading="lazy">
+            <img src="images/IP/mihu.png" alt="迷虎Meetiger" loading="lazy">
+            <img src="images/IP/老虎.png" alt="老虎" loading="lazy">
+            <img src="images/IP/迷虎Meetiger_产品包装概念.png" alt="产品包装概念" loading="lazy">
+            <img src="images/IP/迷虎Meetiger_品牌海报.png" alt="品牌海报" loading="lazy">
+            <img src="images/IP/迷虎Meetiger_生活场景插画.png" alt="生活场景插画" loading="lazy">
+            <img src="images/IP/迷虎Meetiger_社交媒体套装.png" alt="社交媒体套装" loading="lazy">
+            <img src="images/IP/迷虎Meetiger_色彩规范.png" alt="色彩规范" loading="lazy">
+          </div>
+          <button class="ov-btn ov-prev" type="button" aria-label="上一张">&#8249;</button>
+          <button class="ov-btn ov-next" type="button" aria-label="下一张">&#8250;</button>
+          <div class="ov-dots"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="design-panel" id="dpanel-main-image">
       <div class="design-grid">
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#e8e0d5 0%,#c9bfb4 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图1/主图.jpg" alt="主图" loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>护肤品主图系列</h3>
+            <h3>主图</h3>
           </div>
         </div>
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#f5e6d3 0%,#e8c9a0 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图1/主图2..jpg" alt="主图2." loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>食品饮料主图</h3>
+            <h3>主图2.</h3>
           </div>
         </div>
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#dce8f0 0%,#b4c8d8 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图1/图片-1.png" alt="图片-1" loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>数码产品主图</h3>
+            <h3>图片-1</h3>
           </div>
         </div>
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#ead5e8 0%,#c9a8c7 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图1/成品-1 (1).png" alt="成品-1 (1)" loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>服装首图合集</h3>
+            <h3>成品-1 (1)</h3>
           </div>
         </div>
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#d5e8e0 0%,#a8c7ba 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图1/成品-1.png" alt="成品-1" loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>家居生活主图</h3>
+            <h3>成品-1</h3>
           </div>
         </div>
         <div class="design-card">
-          <div class="design-img" style="background:linear-gradient(145deg,#e8ddd5 0%,#c7b4a8 100%)">
-            <div class="design-placeholder">
-              <svg viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="28" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 40 L20 30 L32 38 L44 26 L56 36" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </div>
-          </div>
+          <div class="design-img"><img src="images/主图/主图2/主图1.jpg" alt="主图1" loading="lazy"></div>
           <div class="design-info">
             <span class="design-cat">产品主图</span>
-            <h3>节日特供主图</h3>
+            <h3>主图1</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图2/主图2..jpg" alt="主图2." loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图2.</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图2/主图3.png" alt="主图3" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图3</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图2/主图4.png" alt="主图4" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图4</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图2/主图5.png" alt="主图5" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图5</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图.png" alt="主图" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图1.png" alt="主图1" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图1</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图2.jpg" alt="主图2" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图2</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图3.png" alt="主图3" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图3</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图4.jpg" alt="主图4" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图4</h3>
+          </div>
+        </div>
+        <div class="design-card">
+          <div class="design-img"><img src="images/主图/主图3/主图5.png" alt="主图5" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">产品主图</span>
+            <h3>主图5</h3>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="design-panel" id="dpanel-poster">
-      <div class="design-grid poster-grid">
+    </div>    <div class="design-panel" id="dpanel-poster">
+      <div class="design-grid poster-banner-grid">
         <div class="design-card portrait">
-          <div class="design-img tall" style="background:linear-gradient(160deg,#1a1a2e 0%,#e94560 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 40 60"><rect x="2" y="2" width="36" height="56" rx="2" stroke="white" stroke-width="1" fill="none"/><line x1="8" y1="20" x2="32" y2="20" stroke="white" stroke-width="0.8"/><line x1="8" y1="28" x2="24" y2="28" stroke="white" stroke-width="0.8"/></svg></div>
+          <div class="design-img portrait"><img src="images/bannar/haibao.jpg" alt="haibao" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>haibao</h3>
           </div>
-          <div class="design-info"><span class="design-cat">海报</span><h3>品牌活动海报</h3></div>
         </div>
         <div class="design-card portrait">
-          <div class="design-img tall" style="background:linear-gradient(160deg,#0f3460 0%,#e94560 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 40 60"><rect x="2" y="2" width="36" height="56" rx="2" stroke="white" stroke-width="1" fill="none"/><line x1="8" y1="20" x2="32" y2="20" stroke="white" stroke-width="0.8"/><line x1="8" y1="28" x2="24" y2="28" stroke="white" stroke-width="0.8"/></svg></div>
+          <div class="design-img portrait"><img src="images/bannar/haibao1.png" alt="haibao1" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>haibao1</h3>
           </div>
-          <div class="design-info"><span class="design-cat">海报</span><h3>节日营销海报</h3></div>
         </div>
         <div class="design-card portrait">
-          <div class="design-img tall" style="background:linear-gradient(160deg,#2d1b69 0%,#f7971e 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 40 60"><rect x="2" y="2" width="36" height="56" rx="2" stroke="white" stroke-width="1" fill="none"/><line x1="8" y1="20" x2="32" y2="20" stroke="white" stroke-width="0.8"/><line x1="8" y1="28" x2="24" y2="28" stroke="white" stroke-width="0.8"/></svg></div>
+          <div class="design-img portrait"><img src="images/bannar/海报.png" alt="海报" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>海报</h3>
           </div>
-          <div class="design-info"><span class="design-cat">海报</span><h3>产品上市海报</h3></div>
         </div>
         <div class="design-card portrait">
-          <div class="design-img tall" style="background:linear-gradient(160deg,#1c1c1c 0%,#4a4a4a 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 40 60"><rect x="2" y="2" width="36" height="56" rx="2" stroke="white" stroke-width="1" fill="none"/><line x1="8" y1="20" x2="32" y2="20" stroke="white" stroke-width="0.8"/><line x1="8" y1="28" x2="24" y2="28" stroke="white" stroke-width="0.8"/></svg></div>
+          <div class="design-img portrait"><img src="images/bannar/海报1.png" alt="海报1" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>海报1</h3>
           </div>
-          <div class="design-info"><span class="design-cat">海报</span><h3>艺术展览海报</h3></div>
+        </div>
+        <div class="design-card portrait">
+          <div class="design-img portrait"><img src="images/bannar/海报2.png" alt="海报2" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>海报2</h3>
+          </div>
+        </div>
+        <div class="design-card portrait">
+          <div class="design-img portrait"><img src="images/bannar/海报b.png" alt="海报b" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">海报</span>
+            <h3>海报b</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar.jpg" alt="bannar" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar1.jpg" alt="bannar1" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar1</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar2.jpg" alt="bannar2" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar2</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar2.png" alt="bannar2" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar2</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar3.jpg" alt="bannar3" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar3</h3>
+          </div>
+        </div>
+        <div class="design-card wide">
+          <div class="design-img wide"><img src="images/bannar/bannar4.jpg" alt="bannar4" loading="lazy"></div>
+          <div class="design-info">
+            <span class="design-cat">Banner</span>
+            <h3>bannar4</h3>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="design-panel" id="dpanel-banner">
-      <div class="design-grid banner-grid">
-        <div class="design-card wide">
-          <div class="design-img wide-img" style="background:linear-gradient(90deg,#141e30 0%,#243b55 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 80 30"><rect x="2" y="2" width="76" height="26" rx="2" stroke="white" stroke-width="0.8" fill="none"/><line x1="8" y1="10" x2="40" y2="10" stroke="white" stroke-width="0.6"/><line x1="8" y1="16" x2="30" y2="16" stroke="white" stroke-width="0.6"/><rect x="56" y="8" width="16" height="10" rx="2" stroke="white" stroke-width="0.6" fill="none"/></svg></div>
-          </div>
-          <div class="design-info"><span class="design-cat">Banner</span><h3>首页全屏 Banner</h3></div>
-        </div>
-        <div class="design-card wide">
-          <div class="design-img wide-img" style="background:linear-gradient(90deg,#fc5c7d 0%,#6a3093 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 80 30"><rect x="2" y="2" width="76" height="26" rx="2" stroke="white" stroke-width="0.8" fill="none"/><line x1="8" y1="10" x2="40" y2="10" stroke="white" stroke-width="0.6"/><line x1="8" y1="16" x2="30" y2="16" stroke="white" stroke-width="0.6"/><rect x="56" y="8" width="16" height="10" rx="2" stroke="white" stroke-width="0.6" fill="none"/></svg></div>
-          </div>
-          <div class="design-info"><span class="design-cat">Banner</span><h3>促销活动 Banner</h3></div>
-        </div>
-        <div class="design-card wide">
-          <div class="design-img wide-img" style="background:linear-gradient(90deg,#11998e 0%,#38ef7d 100%)">
-            <div class="design-placeholder light"><svg viewBox="0 0 80 30"><rect x="2" y="2" width="76" height="26" rx="2" stroke="white" stroke-width="0.8" fill="none"/><line x1="8" y1="10" x2="40" y2="10" stroke="white" stroke-width="0.6"/><line x1="8" y1="16" x2="30" y2="16" stroke="white" stroke-width="0.6"/><rect x="56" y="8" width="16" height="10" rx="2" stroke="white" stroke-width="0.6" fill="none"/></svg></div>
-          </div>
-          <div class="design-info"><span class="design-cat">Banner</span><h3>节日主题 Banner</h3></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="design-panel" id="dpanel-detail">
+    </div>    <div class="design-panel" id="dpanel-detail">
       <div class="detail-showcase">
         <div class="detail-card">
-          <div class="detail-strip" style="background:linear-gradient(180deg,#f8f0e8 0%,#edddc4 30%,#e8c99a 60%,#f0d8b4 100%)">
-            <div class="detail-label">详情页</div>
-          </div>
-          <p class="detail-name">护肤品详情页</p>
+          <div class="detail-strip" style="background:#000 url('images/详情页/豆浆机详情页.jpg') center/cover;"></div>
+          <p class="detail-name">豆浆机详情页</p>
         </div>
         <div class="detail-card">
-          <div class="detail-strip" style="background:linear-gradient(180deg,#1a1a2e 0%,#16213e 30%,#0f3460 60%,#1a1a2e 100%)">
-            <div class="detail-label light">详情页</div>
-          </div>
-          <p class="detail-name">数码产品详情页</p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-strip" style="background:linear-gradient(180deg,#f5e6f8 0%,#e8c9f0 30%,#d4a8e4 60%,#c89ad8 100%)">
-            <div class="detail-label">详情页</div>
-          </div>
-          <p class="detail-name">美妆产品详情页</p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-strip" style="background:linear-gradient(180deg,#e8f8e8 0%,#c9e8c9 30%,#a8d4a8 60%,#88c088 100%)">
-            <div class="detail-label">详情页</div>
-          </div>
-          <p class="detail-name">食品详情页</p>
+          <div class="detail-strip" style="background:#000 url('images/详情页/鼠标详情页.jpg') center/cover;"></div>
+          <p class="detail-name">鼠标详情页</p>
         </div>
       </div>
-    </div>
-
-    <div class="design-panel" id="dpanel-logo">
+    </div>    <div class="design-panel" id="dpanel-logo">
       <div class="logo-grid">
         <div class="logo-card">
-          <div class="logo-display" style="background:#fff">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <circle cx="30" cy="30" r="20" fill="#1a1a2e"/>
-              <circle cx="38" cy="30" r="20" fill="#e94560" opacity="0.8"/>
-              <text x="72" y="26" font-size="14" font-weight="bold" fill="#1a1a2e" font-family="Georgia">NOVA</text>
-              <text x="72" y="40" font-size="7" fill="#666" font-family="Georgia" letter-spacing="2">STUDIO</text>
-            </svg>
-          </div>
-          <p>科技品牌 Logo</p>
+          <div class="logo-display"><img src="images/logo/ChatGPT Image 2026年5月26日 19_38_26.png" alt="凤凰飞鸟"></div>
+          <p>凤凰飞鸟</p>
         </div>
         <div class="logo-card">
-          <div class="logo-display" style="background:#1a1a2e">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <polygon points="30,10 50,50 10,50" fill="none" stroke="#f7971e" stroke-width="2"/>
-              <text x="62" y="28" font-size="13" font-weight="bold" fill="white" font-family="Georgia">APEX</text>
-              <text x="62" y="44" font-size="6" fill="#f7971e" font-family="Georgia" letter-spacing="3">CREATIVE</text>
-            </svg>
-          </div>
-          <p>创意工作室 Logo</p>
+          <div class="logo-display"><img src="images/logo/Logo提示词撰写指南.png" alt="几何猫"></div>
+          <p>几何猫</p>
         </div>
         <div class="logo-card">
-          <div class="logo-display" style="background:#f5f0eb">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <rect x="10" y="10" width="40" height="40" rx="8" fill="#c9a96e"/>
-              <text x="22" y="38" font-size="20" font-weight="bold" fill="white" font-family="Georgia">B</text>
-              <text x="60" y="28" font-size="12" fill="#333" font-family="Georgia">Bloom</text>
-              <text x="60" y="42" font-size="7" fill="#888" font-family="Georgia" letter-spacing="2">BEAUTY</text>
-            </svg>
-          </div>
-          <p>美妆品牌 Logo</p>
-        </div>
-        <div class="logo-card">
-          <div class="logo-display" style="background:#0a1628">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <path d="M 20,30 Q 35,10 50,30 Q 35,50 20,30" fill="#38ef7d"/>
-              <text x="62" y="28" font-size="12" font-weight="bold" fill="white" font-family="Georgia">VERDE</text>
-              <text x="62" y="42" font-size="6" fill="#38ef7d" font-family="Georgia" letter-spacing="2">ECO LIFE</text>
-            </svg>
-          </div>
-          <p>环保品牌 Logo</p>
-        </div>
-        <div class="logo-card">
-          <div class="logo-display" style="background:#fff">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <line x1="10" y1="30" x2="50" y2="30" stroke="#333" stroke-width="1.5"/>
-              <circle cx="30" cy="30" r="6" fill="#333"/>
-              <text x="62" y="28" font-size="13" fill="#333" font-family="Georgia">MONO</text>
-              <text x="62" y="42" font-size="6" fill="#999" font-family="Georgia" letter-spacing="4">DESIGN</text>
-            </svg>
-          </div>
-          <p>极简风格 Logo</p>
-        </div>
-        <div class="logo-card">
-          <div class="logo-display" style="background:#2d1b69">
-            <svg viewBox="0 0 120 60" class="logo-svg">
-              <path d="M30 15 L45 45 L15 45 Z" fill="#f953c6"/>
-              <path d="M34 15 L49 45 L19 45 Z" fill="#b91d73" opacity="0.6"/>
-              <text x="62" y="28" font-size="12" font-weight="bold" fill="white" font-family="Georgia">PRISM</text>
-              <text x="62" y="42" font-size="6" fill="#f953c6" font-family="Georgia" letter-spacing="2">EVENTS</text>
-            </svg>
-          </div>
-          <p>活动品牌 Logo</p>
+          <div class="logo-display"><img src="images/logo/ChatGPT Image 2026年5月26日 19_54_15.png" alt="橘猫咖啡厅"></div>
+          <p>橘猫咖啡厅</p>
         </div>
       </div>
     </div>
@@ -462,73 +678,36 @@
     <div class="design-panel" id="dpanel-ip">
       <div class="ip-grid">
         <div class="ip-card">
-          <div class="ip-display" style="background:linear-gradient(145deg,#f0f8ff 0%,#dceeff 100%)">
-            <svg viewBox="0 0 100 120" class="ip-svg">
-              <ellipse cx="50" cy="55" rx="28" ry="32" fill="#ffe4b5"/>
-              <circle cx="50" cy="40" r="22" fill="#ffd700"/>
-              <circle cx="42" cy="38" r="3" fill="#333"/>
-              <circle cx="58" cy="38" r="3" fill="#333"/>
-              <path d="M 42 48 Q 50 54 58 48" stroke="#333" stroke-width="1.5" fill="none"/>
-              <ellipse cx="50" cy="80" rx="22" ry="18" fill="#4a90e2"/>
-              <rect x="32" y="68" width="36" height="20" rx="4" fill="#4a90e2"/>
-            </svg>
-          </div>
-          <div class="ip-info">
-            <h3>蓝星小子</h3>
-            <p>品牌吉祥物 · 科技感</p>
-          </div>
+          <div class="ip-display"><img src="images/IP/bcc36dd36c9f49188ab416d90e04807f.png" alt="迷虎Meetiger"></div>
+          <div class="ip-info"><h3>迷虎Meetiger</h3><p>IP 形象</p></div>
         </div>
         <div class="ip-card">
-          <div class="ip-display" style="background:linear-gradient(145deg,#fff0f5 0%,#ffd6e4 100%)">
-            <svg viewBox="0 0 100 120" class="ip-svg">
-              <circle cx="50" cy="38" r="24" fill="#ffb6c1"/>
-              <ellipse cx="38" cy="26" rx="8" ry="10" fill="#ff69b4"/>
-              <ellipse cx="62" cy="26" rx="8" ry="10" fill="#ff69b4"/>
-              <circle cx="50" cy="38" r="20" fill="#ffd0d8"/>
-              <circle cx="43" cy="36" r="3" fill="#c0392b"/>
-              <circle cx="57" cy="36" r="3" fill="#c0392b"/>
-              <ellipse cx="50" cy="44" rx="4" ry="2" fill="#ff9aaa"/>
-              <path d="M 44 50 Q 50 56 56 50" stroke="#c0392b" stroke-width="1.5" fill="none"/>
-              <ellipse cx="50" cy="80" rx="20" ry="16" fill="#ff69b4"/>
-            </svg>
-          </div>
-          <div class="ip-info">
-            <h3>桃花兔</h3>
-            <p>可爱系吉祥物 · 少女风</p>
-          </div>
+          <div class="ip-display"><img src="images/IP/mihu.png" alt="迷虎Meetiger"></div>
+          <div class="ip-info"><h3>迷虎Meetiger</h3><p>IP 形象</p></div>
         </div>
         <div class="ip-card">
-          <div class="ip-display" style="background:linear-gradient(145deg,#f0fff0 0%,#c8f0c8 100%)">
-            <svg viewBox="0 0 100 120" class="ip-svg">
-              <ellipse cx="50" cy="60" rx="26" ry="34" fill="#90ee90"/>
-              <circle cx="50" cy="36" r="22" fill="#98fb98"/>
-              <ellipse cx="42" cy="34" rx="3.5" ry="4" fill="#228b22"/>
-              <ellipse cx="58" cy="34" rx="3.5" ry="4" fill="#228b22"/>
-              <ellipse cx="50" cy="44" rx="5" ry="3" fill="#90ee90"/>
-              <path d="M 44 47 Q 50 52 56 47" stroke="#228b22" stroke-width="1.5" fill="none"/>
-              <path d="M 36 20 Q 40 10 44 18" stroke="#228b22" stroke-width="2" fill="none"/>
-              <path d="M 64 20 Q 60 10 56 18" stroke="#228b22" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="ip-info">
-            <h3>绿豆蛙</h3>
-            <p>环保品牌 IP · 自然风</p>
-          </div>
+          <div class="ip-display"><img src="images/IP/老虎.png" alt="老虎"></div>
+          <div class="ip-info"><h3>老虎</h3><p>IP 形象</p></div>
         </div>
         <div class="ip-card">
-          <div class="ip-display" style="background:linear-gradient(145deg,#fff8e0 0%,#ffeaa0 100%)">
-            <svg viewBox="0 0 100 120" class="ip-svg">
-              <polygon points="50,12 62,36 88,40 68,60 72,86 50,74 28,86 32,60 12,40 38,36" fill="#ffd700" stroke="#e6b800" stroke-width="1"/>
-              <circle cx="50" cy="50" r="16" fill="#fff8dc"/>
-              <ellipse cx="44" cy="48" rx="2.5" ry="3" fill="#333"/>
-              <ellipse cx="56" cy="48" rx="2.5" ry="3" fill="#333"/>
-              <path d="M 44 56 Q 50 61 56 56" stroke="#e6b800" stroke-width="1.5" fill="none"/>
-            </svg>
-          </div>
-          <div class="ip-info">
-            <h3>闪耀星</h3>
-            <p>教育品牌 IP · 活力感</p>
-          </div>
+          <div class="ip-display"><img src="images/IP/迷虎Meetiger_产品包装概念.png" alt="产品包装概念"></div>
+          <div class="ip-info"><h3>产品包装概念</h3><p>IP 应用</p></div>
+        </div>
+        <div class="ip-card">
+          <div class="ip-display"><img src="images/IP/迷虎Meetiger_品牌海报.png" alt="品牌海报"></div>
+          <div class="ip-info"><h3>品牌海报</h3><p>IP 应用</p></div>
+        </div>
+        <div class="ip-card">
+          <div class="ip-display"><img src="images/IP/迷虎Meetiger_生活场景插画.png" alt="生活场景插画"></div>
+          <div class="ip-info"><h3>生活场景插画</h3><p>IP 应用</p></div>
+        </div>
+        <div class="ip-card">
+          <div class="ip-display"><img src="images/IP/迷虎Meetiger_社交媒体套装.png" alt="社交媒体套装"></div>
+          <div class="ip-info"><h3>社交媒体套装</h3><p>IP 应用</p></div>
+        </div>
+        <div class="ip-card">
+          <div class="ip-display"><img src="images/IP/迷虎Meetiger_色彩规范.png" alt="色彩规范"></div>
+          <div class="ip-info"><h3>色彩规范</h3><p>IP 规范</p></div>
         </div>
       </div>
     </div>

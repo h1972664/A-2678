@@ -2,25 +2,25 @@
    Creative Studio · main.js
    ════════════════════════════════════════════════════════ */
 
-/* ── Hero reel data ──────────────────────────────────── */
-const reelSlides = [
-  {
-    gradient: 'linear-gradient(135deg, #0e0e0e 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%)',
-    label: 'TVC 广告片'
-  },
-  {
-    gradient: 'linear-gradient(135deg, #1c1c1c 0%, #2d1b69 50%, #11998e 100%)',
-    label: 'MV 音乐视频'
-  },
-  {
-    gradient: 'linear-gradient(135deg, #0a0a0a 0%, #3d1c02 50%, #7b3f00 100%)',
-    label: '品牌形象片'
-  },
-  {
-    gradient: 'linear-gradient(135deg, #0e0e1a 0%, #1a0e2e 40%, #2d0c3a 70%, #1a0828 100%)',
-    label: '漫剧系列'
-  }
+/* ── Hero reel videos (all uploaded videos, shuffled on load) ── */
+const heroReelVideos = [
+  'videos/tvc/冰红茶.mp4', 'videos/tvc/印章.mp4', 'videos/tvc/复古苏联怀表广告.mp4',
+  'videos/tvc/美妆广告.mp4', 'videos/tvc/英文陶瓷碗广告.mp4', 'videos/tvc/豆浆机广告.mp4',
+  'videos/tvc/酒杯.mp4', 'videos/tvc/铠甲.mp4', 'videos/tvc/香水广告.mp4',
+  'videos/tvc/香水广告1.mp4', 'videos/tvc/香炉横屏.mp4', 'videos/tvc/鼠标广告.mp4',
+  'videos/数字人/jimeng-2026-07-16-5805.mp4',
+  'videos/漫剧/九域妖灵录-1.mp4', 'videos/漫剧/九域妖灵录-2.mp4',
+  'videos/漫剧/九域妖灵录-3.mp4', 'videos/漫剧/九域妖灵录-4.mp4', 'videos/漫剧/九域妖灵录-5.mp4'
 ];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 /* ═══════════════════════════════════════════════════════
    LOADER
@@ -47,6 +47,7 @@ const reelSlides = [
         initScrollReveal();
         initStatCounters();
         initSkillBars();
+        initOverviewSliders();
       }, 400);
       return;
     }
@@ -83,48 +84,96 @@ const reelSlides = [
 })();
 
 /* ═══════════════════════════════════════════════════════
-   HERO REEL
+   HERO REEL (shuffled video carousel)
    ═══════════════════════════════════════════════════════ */
 function initHeroReel() {
   const reel = document.getElementById('heroReel');
   const dotsWrap = document.getElementById('reelDots');
+  if (!reel || !dotsWrap) return;
 
-  // build slides
-  reelSlides.forEach((s, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'reel-slide' + (i === 0 ? ' active' : '');
-    const bg = document.createElement('div');
-    bg.className = 'reel-slide-bg';
-    bg.style.background = s.gradient;
-    slide.appendChild(bg);
-    reel.appendChild(slide);
+  // build the two video layers (cross-fade between them)
+  const backLayer = document.createElement('div');
+  const frontLayer = document.createElement('div');
+  backLayer.className = 'reel-layer reel-empty';
+  frontLayer.className = 'reel-layer reel-empty';
+  reel.innerHTML = '';
+  reel.appendChild(backLayer);
+  reel.appendChild(frontLayer);
 
-    // dot
+  const playlist = shuffleArray(heroReelVideos);
+  const count = playlist.length;
+  let current = 0;
+  let activeFront = true; // frontLayer is currently visible
+  let timer = null;
+
+  function createVideo(src) {
+    const video = document.createElement('video');
+    video.src = src;
+    video.muted = true;
+    video.loop = false;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('muted', '');
+    video.setAttribute('preload', 'auto');
+    return video;
+  }
+
+  function updateDots() {
+    dotsWrap.querySelectorAll('.reel-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  function loadLayer(layer, src) {
+    layer.innerHTML = '';
+    layer.classList.remove('reel-empty');
+    const video = createVideo(src);
+    layer.appendChild(video);
+    video.play().catch(() => {});
+  }
+
+  function goToSlide(idx) {
+    current = (idx + count) % count;
+    const target = activeFront ? backLayer : frontLayer;
+    const currentVisible = activeFront ? frontLayer : backLayer;
+
+    loadLayer(target, playlist[current]);
+    target.classList.add('active');
+    currentVisible.classList.remove('active');
+    activeFront = !activeFront;
+    updateDots();
+
+    clearTimeout(timer);
+    timer = setTimeout(() => goToSlide(current + 1), 8000);
+  }
+
+  // build dots
+  for (let i = 0; i < count; i++) {
     const dot = document.createElement('div');
     dot.className = 'reel-dot' + (i === 0 ? ' active' : '');
     dot.addEventListener('click', () => goToSlide(i));
     dotsWrap.appendChild(dot);
-  });
-
-  let current = 0;
-  const slides = reel.querySelectorAll('.reel-slide');
-  const dots = dotsWrap.querySelectorAll('.reel-dot');
-
-  function goToSlide(idx) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (idx + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
   }
 
-  // auto-play
-  let timer = setInterval(() => goToSlide(current + 1), 5000);
+  // initial load: fill the visible layer with the first video
+  loadLayer(frontLayer, playlist[0]);
+  frontLayer.classList.add('active');
+  timer = setTimeout(() => goToSlide(1), 8000);
 
-  // pause on hover
-  reel.parentElement.addEventListener('mouseenter', () => clearInterval(timer));
-  reel.parentElement.addEventListener('mouseleave', () => {
-    timer = setInterval(() => goToSlide(current + 1), 5000);
+  // pause auto-advance while user is hovering the hero (keep playback running)
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mouseenter', () => clearTimeout(timer));
+  hero.addEventListener('mouseleave', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => goToSlide(current + 1), 8000);
+  });
+
+  // respect visibility: pause hidden videos to save bandwidth
+  document.addEventListener('visibilitychange', () => {
+    reel.querySelectorAll('video').forEach(v => {
+      v[document.hidden ? 'pause' : 'play']().catch(() => {});
+    });
   });
 }
 
@@ -255,30 +304,217 @@ function handleForm(e) {
 document.querySelectorAll('.video-card').forEach(card => {
   card.addEventListener('click', () => {
     const title = card.querySelector('h3').textContent;
-    showModal(title);
+    const src = card.dataset.src;
+    showVideoModal(title, src);
   });
 });
 
-function showModal(title) {
+function showVideoModal(title, src) {
   const modal = document.createElement('div');
-  modal.style.cssText = `
-    position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:2000;
-    display:flex;align-items:center;justify-content:center;
-    animation:fadeIn 0.3s ease;
-  `;
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s ease;padding:24px;';
   modal.innerHTML = `
-    <div style="background:#111;border-radius:8px;padding:48px;text-align:center;max-width:480px;width:90%;position:relative;">
-      <button onclick="this.closest('[style]').remove()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#888;font-size:20px;cursor:pointer;">×</button>
-      <div style="width:64px;height:64px;border:1px solid #c9a96e;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#c9a96e"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>
-      <p style="font-size:12px;letter-spacing:3px;color:#c9a96e;margin-bottom:10px;font-weight:300;">NOW PLAYING</p>
-      <p style="font-size:16px;color:#fff;font-weight:400;">${title}</p>
-      <p style="font-size:12px;color:#555;margin-top:12px;">（请替换为真实视频链接）</p>
-    </div>
-  `;
+    <div style="max-width:960px;width:100%;position:relative;">
+      <button onclick="this.closest('[style]').remove()" style="position:absolute;top:-42px;right:0;background:none;border:none;color:#fff;font-size:30px;cursor:pointer;line-height:1;">×</button>
+      <p style="font-size:11px;letter-spacing:3px;color:#c9a96e;margin-bottom:10px;font-weight:300;">NOW PLAYING</p>
+      <video src="${src}" controls autoplay playsinline style="width:100%;border-radius:6px;background:#000;max-height:80vh;display:block;"></video>
+      <p style="font-size:16px;color:#fff;font-weight:400;margin-top:14px;text-align:center;">${title}</p>
+    </div>`;
   modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   document.body.appendChild(modal);
+}
+
+/* ═══════════════════════════════════════════════════════
+   IMAGE LIGHTBOX (zoom · wheel / buttons) — global
+   ═══════════════════════════════════════════════════════ */
+function openLightbox(src, caption) {
+  if (!src) return;
+
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = `
+    <div class="lightbox-toolbar">
+      <button class="lb-btn lb-zoom-out" type="button" aria-label="缩小" title="缩小">&minus;</button>
+      <span class="lb-zoom-level">100%</span>
+      <button class="lb-btn lb-zoom-in" type="button" aria-label="放大" title="放大">+</button>
+      <button class="lb-btn lightbox-close" type="button" aria-label="关闭" title="关闭">&times;</button>
+    </div>
+    <div class="lightbox-stage">
+      <img src="${src}" alt="${(caption || '').replace(/"/g, '&quot;')}" draggable="false">
+    </div>`;
+
+  const img   = lb.querySelector('.lightbox-stage img');
+  const level = lb.querySelector('.lb-zoom-level');
+  let scale = 1, tx = 0, ty = 0;
+
+  function apply() {
+    scale = Math.min(Math.max(scale, 0.5), 6);
+    img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    level.textContent = Math.round(scale * 100) + '%';
+  }
+  function zoomBy(f) { scale *= f; if (scale <= 1) { tx = 0; ty = 0; } apply(); }
+
+  lb.querySelector('.lb-zoom-in').addEventListener('click', e => { e.stopPropagation(); zoomBy(1.2); });
+  lb.querySelector('.lb-zoom-out').addEventListener('click', e => { e.stopPropagation(); zoomBy(1 / 1.2); });
+
+  lb.addEventListener('wheel', e => {
+    e.preventDefault();
+    zoomBy(e.deltaY < 0 ? 1.12 : 1 / 1.12);
+  }, { passive: false });
+
+  let dragging = false, sx = 0, sy = 0, stx = 0, sty = 0;
+  function onMove(e) {
+    if (!dragging) return;
+    tx = stx + (e.clientX - sx);
+    ty = sty + (e.clientY - sy);
+    apply();
+  }
+  function onUp() { if (dragging) { dragging = false; img.classList.remove('grabbing'); } }
+  img.addEventListener('mousedown', e => {
+    if (scale <= 1) return;
+    dragging = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+    img.classList.add('grabbing'); e.preventDefault();
+  });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onUp);
+
+  let pinchStart = 0, baseScale = 1;
+  lb.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      pinchStart = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      baseScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const d = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      if (pinchStart) { scale = baseScale * (d / pinchStart); tx = 0; ty = 0; apply(); }
+    }
+  }, { passive: false });
+
+  const close = () => {
+    window.removeEventListener('mousemove', onMove);
+    window.removeEventListener('mouseup', onUp);
+    lb.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = e => {
+    if (e.key === 'Escape') close();
+    else if (e.key === '+' || e.key === '=') zoomBy(1.2);
+    else if (e.key === '-' || e.key === '_') zoomBy(1 / 1.2);
+    else if (e.key === '0') { scale = 1; tx = 0; ty = 0; apply(); }
+  };
+  lb.addEventListener('click', e => {
+    if (e.target === lb || e.target.classList.contains('lightbox-stage')) close();
+  });
+  lb.querySelector('.lightbox-close').addEventListener('click', e => { e.stopPropagation(); close(); });
+  img.addEventListener('dblclick', e => { e.stopPropagation(); scale = 1; tx = 0; ty = 0; apply(); });
+  document.addEventListener('keydown', onKey);
+
+  document.body.appendChild(lb);
+}
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN SECTION LIGHTBOX HOOKS
+   ═══════════════════════════════════════════════════════ */
+(function initDesignLightbox() {
+  const section = document.getElementById('design-section');
+  if (!section) return;
+
+  // real <img> inside design cards
+  section.querySelectorAll('.design-img img').forEach(img => {
+    img.addEventListener('click', () => {
+      const cat = img.closest('.design-card')?.querySelector('.design-cat')?.textContent || '';
+      openLightbox(img.src, cat);
+    });
+  });
+
+  // background-image detail strips (详情页)
+  section.querySelectorAll('.detail-strip').forEach(strip => {
+    const bg = getComputedStyle(strip).backgroundImage;
+    const m = bg.match(/url\(["']?([^"')]+)["']?\)/);
+    if (!m) return;
+    strip.addEventListener('click', () => openLightbox(m[1], ''));
+  });
+
+  // IP 形象真实图片
+  section.querySelectorAll('.ip-display img').forEach(img => {
+    img.addEventListener('click', () => {
+      const cat = img.closest('.ip-card')?.querySelector('.ip-info h3')?.textContent || 'IP形象';
+      openLightbox(img.src, cat);
+    });
+  });
+
+  // Logo 真实图片
+  section.querySelectorAll('.logo-display img').forEach(img => {
+    img.addEventListener('click', () => {
+      const cat = img.closest('.logo-card')?.querySelector('p')?.textContent || 'Logo';
+      openLightbox(img.src, cat);
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════
+   OVERVIEW SLIDERS (首页总览 · 手动滑动 + 灯箱)
+   ═══════════════════════════════════════════════════════ */
+function initOverviewSliders() {
+  document.querySelectorAll('.ov-slider').forEach(slider => {
+    const track = slider.querySelector('.ov-track');
+    const imgs  = track.querySelectorAll('img');
+    const total = imgs.length;
+    if (total === 0) return;
+
+    const dotsWrap = slider.querySelector('.ov-dots');
+    const btnPrev  = slider.querySelector('.ov-prev');
+    const btnNext  = slider.querySelector('.ov-next');
+    const cardCat  = slider.closest('.ov-card')?.querySelector('.ov-card-cat')?.textContent || '';
+    let current = 0, autoTimer = null;
+    const interval = 5000;
+
+    if (total <= 1) {
+      btnPrev.style.display = 'none';
+      btnNext.style.display = 'none';
+      dotsWrap.style.display = 'none';
+    }
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'ov-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); resetAuto(); });
+      dotsWrap.appendChild(dot);
+    }
+
+    function updateUI() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsWrap.querySelectorAll('.ov-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    function goTo(idx) { current = (idx + total) % total; updateUI(); }
+    function startAuto() { if (total <= 1) return; autoTimer = setInterval(() => goTo(current + 1), interval); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+    btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); resetAuto(); });
+    btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); resetAuto(); });
+
+    // 触摸滑动
+    let touchX = 0;
+    slider.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', e => {
+      const diff = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+    }, { passive: true });
+
+    // 点击图片放大（复用灯箱）
+    imgs.forEach(img => img.addEventListener('click', () => openLightbox(img.src, cardCat)));
+
+    startAuto();
+    updateUI();
+  });
 }
 
 /* ═══════════════════════════════════════════════════════
