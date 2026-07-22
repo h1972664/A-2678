@@ -10,7 +10,7 @@ const heroReelVideos = [
   'videos/tvc/香水广告1.mp4', 'videos/tvc/香炉横屏.mp4', 'videos/tvc/鼠标广告.mp4',
   'videos/数字人/jimeng-2026-07-16-5805.mp4',
   'videos/漫剧/九域妖灵录-1.mp4', 'videos/漫剧/九域妖灵录-2.mp4',
-  'videos/漫剧/九域妖灵录-3.mp4', 'videos/漫剧/九域妖灵录-4.mp4', 'videos/漫剧/九域妖灵录-5.mp4'
+  'videos/漫剧/九域妖灵录-3.mp4', 'videos/漫剧/九域妖灵录-4.mp4', 'videos/漫剧/九域妖灵录-第五章.mp4'
 ];
 
 function shuffleArray(arr) {
@@ -38,27 +38,39 @@ function shuffleArray(arr) {
     { pct: 100, msg: 'Welcome ✦' }
   ];
 
+  // start hero reel ASAP (don't wait for the loader animation to finish)
+  let heroStarted = false;
+  function startHero() {
+    if (heroStarted) return;
+    heroStarted = true;
+    initHeroReel();
+    initScrollReveal();
+    initStatCounters();
+    initSkillBars();
+    initOverviewSliders();
+  }
+
   let i = 0;
   function step() {
     if (i >= steps.length) {
       setTimeout(() => {
         loader.classList.add('hidden');
-        initHeroReel();
-        initScrollReveal();
-        initStatCounters();
-        initSkillBars();
-        initOverviewSliders();
-      }, 400);
+        startHero();
+      }, 200);
       return;
     }
     const { pct, msg } = steps[i++];
     bar.style.width = pct + '%';
     text.textContent = msg;
-    setTimeout(step, i === 1 ? 300 : 450);
+    setTimeout(step, i === 1 ? 160 : 220);
   }
 
   // start after a tiny delay so the browser has painted
-  setTimeout(step, 180);
+  setTimeout(step, 100);
+
+  // safety net: kick off the hero reel early so the carousel is ready
+  // even before the loader visually finishes (poster shows instantly)
+  setTimeout(startHero, 600);
 })();
 
 /* ═══════════════════════════════════════════════════════
@@ -106,16 +118,26 @@ function initHeroReel() {
   let activeFront = true; // frontLayer is currently visible
   let timer = null;
 
-  function createVideo(src) {
+  // derive poster path from a video src: videos/tvc/x.mp4 -> videos/posters/tvc/x.jpg
+  function posterFor(src) {
+    if (src.indexOf('videos/漫剧/') === 0) return '第三集最后一版-封面.jpg';
+    return src.replace('videos/', 'videos/posters/').replace(/\.mp4$/i, '.jpg');
+  }
+
+  function createVideo(src, eager) {
     const video = document.createElement('video');
+    const poster = posterFor(src);
     video.src = src;
+    video.poster = poster;                 // 秒显封面静帧，视频缓冲期不再黑屏
     video.muted = true;
     video.loop = false;
     video.playsInline = true;
     video.autoplay = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('muted', '');
-    video.setAttribute('preload', 'auto');
+    // 首个视频急加载，尽快开始播放；后续视频只取元数据省带宽
+    video.setAttribute('preload', eager ? 'auto' : 'metadata');
+    if (eager) video.setAttribute('fetchpriority', 'high');
     return video;
   }
 
@@ -125,10 +147,14 @@ function initHeroReel() {
     });
   }
 
-  function loadLayer(layer, src) {
+  function loadLayer(layer, src, eager) {
     layer.innerHTML = '';
     layer.classList.remove('reel-empty');
-    const video = createVideo(src);
+    // 图层背景先铺封面图，视频还没解码出画面时也不会黑屏
+    layer.style.backgroundImage = `url("${posterFor(src)}")`;
+    layer.style.backgroundSize = 'cover';
+    layer.style.backgroundPosition = 'center';
+    const video = createVideo(src, eager);
     layer.appendChild(video);
     video.play().catch(() => {});
   }
@@ -156,8 +182,8 @@ function initHeroReel() {
     dotsWrap.appendChild(dot);
   }
 
-  // initial load: fill the visible layer with the first video
-  loadLayer(frontLayer, playlist[0]);
+  // initial load: fill the visible layer with the first video (eager = fast start)
+  loadLayer(frontLayer, playlist[0], true);
   frontLayer.classList.add('active');
   timer = setTimeout(() => goToSlide(1), 8000);
 
