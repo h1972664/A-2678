@@ -45,7 +45,6 @@ function shuffleArray(arr) {
     heroStarted = true;
     initHeroReel();
     initScrollReveal();
-    initStatCounters();
     initSkillBars();
     initOverviewSliders();
   }
@@ -241,7 +240,7 @@ function initHeroReel() {
 function initScrollReveal() {
   // mark targets
   const targets = document.querySelectorAll(
-    '.video-card, .design-card, .logo-card, .ip-card, .detail-card, .contact-card, .stat-item, .about-wrap, .section-header'
+    '.video-card, .design-card, .logo-card, .ip-card, .detail-card, .contact-card, .about-wrap, .section-header'
   );
   targets.forEach((el, i) => {
     el.classList.add('reveal');
@@ -258,34 +257,6 @@ function initScrollReveal() {
   }, { threshold: 0.12 });
 
   targets.forEach(el => io.observe(el));
-}
-
-/* ═══════════════════════════════════════════════════════
-   STAT COUNTERS
-   ═══════════════════════════════════════════════════════ */
-function initStatCounters() {
-  const nums = document.querySelectorAll('.stat-num');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = +el.dataset.target;
-      const duration = 1600;
-      const start = performance.now();
-
-      function tick(now) {
-        const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = Math.round(eased * target);
-        if (t < 1) requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(tick);
-      io.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-
-  nums.forEach(el => io.observe(el));
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -337,16 +308,156 @@ document.querySelectorAll('.video-card').forEach(card => {
 
 function showVideoModal(title, src) {
   const modal = document.createElement('div');
-  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s ease;padding:24px;';
+  modal.className = 'video-modal';
   modal.innerHTML = `
-    <div style="max-width:960px;width:100%;position:relative;">
-      <button onclick="this.closest('[style]').remove()" style="position:absolute;top:-42px;right:0;background:none;border:none;color:#fff;font-size:30px;cursor:pointer;line-height:1;">×</button>
-      <p style="font-size:11px;letter-spacing:3px;color:#c9a96e;margin-bottom:10px;font-weight:300;">NOW PLAYING</p>
-      <video src="${src}" controls autoplay playsinline style="width:100%;border-radius:6px;background:#000;max-height:80vh;display:block;"></video>
-      <p style="font-size:16px;color:#fff;font-weight:400;margin-top:14px;text-align:center;">${title}</p>
+    <div class="video-modal-inner">
+      <button class="video-modal-close" type="button" aria-label="关闭">×</button>
+      <p class="video-modal-label">NOW PLAYING</p>
+      <div class="video-modal-player">
+        <video src="${src}" autoplay playsinline></video>
+        <div class="video-controls">
+          <button class="video-play-pause" type="button" aria-label="播放/暂停">
+            <svg class="icon-pause" viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" rx="1"/><rect x="14" y="4" width="5" height="16" rx="1"/></svg>
+            <svg class="icon-play" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+          <div class="video-progress-wrap">
+            <div class="video-progress-track"><div class="video-progress-fill"></div></div>
+            <div class="video-progress-handle"></div>
+          </div>
+          <div class="video-time"><span class="video-current">0:00</span><span class="video-sep">/</span><span class="video-duration">0:00</span></div>
+        </div>
+      </div>
+      <p class="video-modal-title">${title}</p>
     </div>`;
-  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   document.body.appendChild(modal);
+  modal.focus();
+
+  const video = modal.querySelector('video');
+  const playPause = modal.querySelector('.video-play-pause');
+  const progressWrap = modal.querySelector('.video-progress-wrap');
+  const progressTrack = modal.querySelector('.video-progress-track');
+  const progressFill = modal.querySelector('.video-progress-fill');
+  const progressHandle = modal.querySelector('.video-progress-handle');
+  const controls = modal.querySelector('.video-controls');
+  const currentEl = modal.querySelector('.video-current');
+  const durationEl = modal.querySelector('.video-duration');
+
+  let isDragging = false;
+  let controlsHideTimer = null;
+
+  function formatTime(t) {
+    if (!isFinite(t) || isNaN(t)) return '0:00';
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function updateProgress() {
+    const pct = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+    progressFill.style.width = pct + '%';
+    progressHandle.style.left = pct + '%';
+    currentEl.textContent = formatTime(video.currentTime);
+  }
+
+  function seekFromEvent(e) {
+    const rect = progressTrack.getBoundingClientRect();
+    const clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
+    let x = clientX - rect.left;
+    x = Math.max(0, Math.min(x, rect.width));
+    const pct = rect.width ? x / rect.width : 0;
+    if (video.duration) video.currentTime = pct * video.duration;
+    updateProgress();
+  }
+
+  function showControls() {
+    controls.classList.add('show');
+    clearTimeout(controlsHideTimer);
+    if (!video.paused && !isDragging) {
+      controlsHideTimer = setTimeout(() => controls.classList.remove('show'), 3000);
+    }
+  }
+
+  video.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = formatTime(video.duration);
+  });
+  video.addEventListener('timeupdate', updateProgress);
+  video.addEventListener('play', () => {
+    playPause.classList.remove('is-paused');
+    showControls();
+  });
+  video.addEventListener('pause', () => {
+    playPause.classList.add('is-paused');
+    controls.classList.add('show');
+    clearTimeout(controlsHideTimer);
+  });
+  video.addEventListener('ended', () => {
+    playPause.classList.add('is-paused');
+    controls.classList.add('show');
+    clearTimeout(controlsHideTimer);
+  });
+  video.addEventListener('click', () => {
+    if (video.paused) video.play(); else video.pause();
+  });
+
+  playPause.addEventListener('click', () => {
+    if (video.paused) video.play(); else video.pause();
+  });
+
+  function startDrag(e) {
+    isDragging = true;
+    progressWrap.classList.add('dragging');
+    seekFromEvent(e);
+    showControls();
+  }
+  progressWrap.addEventListener('mousedown', startDrag);
+  progressWrap.addEventListener('touchstart', startDrag, { passive: false });
+
+  function onMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    seekFromEvent(e);
+  }
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    progressWrap.classList.remove('dragging');
+    if (!video.paused) showControls();
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', endDrag);
+
+  // 轻触屏幕短暂显示控制条（移动端）
+  modal.querySelector('.video-modal-player').addEventListener('touchstart', () => showControls(), { passive: true });
+
+  // 键盘：空格播放/暂停，左右箭头 5 秒进退
+  modal.addEventListener('keydown', e => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (video.paused) video.play(); else video.pause();
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault();
+      video.currentTime = Math.max(0, video.currentTime - 5);
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault();
+      video.currentTime = Math.min(video.duration || 0, video.currentTime + 5);
+    }
+  });
+  modal.tabIndex = 0;
+
+  function close() {
+    video.pause();
+    clearTimeout(controlsHideTimer);
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', endDrag);
+    modal.remove();
+  }
+
+  modal.querySelector('.video-modal-close').addEventListener('click', close);
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
 }
 
 /* ═══════════════════════════════════════════════════════
