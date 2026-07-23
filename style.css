@@ -1225,6 +1225,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   justify-content: center;
   transition: background 0.2s;
+  pointer-events: auto;
 }
 
 .video-play-pause:hover { background: rgba(255,255,255,0.22); }
@@ -1241,6 +1242,7 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .video-progress-track {
@@ -1287,6 +1289,7 @@ a { text-decoration: none; color: inherit; }
   color: rgba(255,255,255,0.85);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  pointer-events: auto;
 }
 
 .video-time .video-sep { margin: 0 3px; opacity: 0.6; }
